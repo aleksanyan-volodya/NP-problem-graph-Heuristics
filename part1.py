@@ -1,16 +1,4 @@
-exempl1 = {
-    0: {2,3,5,9},
-    1: {2,4,6,8},
-    2: {0,1,3,4,5,6},
-    3: {0,2,6},
-    4: {1,2,5},
-    5: {0,2,4},
-    6: {1,2,3},
-    8: {1},
-    9: {0}
-}
-
-def max_degre(G,not_pic=[]):
+def max_degre(G,not_pic=[])->int:
     """
     return le sommet avec le plus haut degré, n'étant pas dans not_pic
     """
@@ -40,21 +28,19 @@ def neighbours_colors(G,cols,sommet):
     """
     return set([cols[neighbour] for neighbour in G[sommet]])
 
-def is_colored(cols):
+def is_colored(cols)->bool:
+    """
+    Vérifie si tout les noeuds sont bien coloriés
+    """
     for s,col in cols.items():
         if col==-1:
             return False
     return True
 
-def is_well_colored(G,cols):
-    for s,col in cols.items():
-        if col==-1 or (col in neighbours_colors(G,cols,s) ):
-            return False
-    return True
-
 def naive_coloration(G,k):
     """
-    @return : renvoie une coloration selon l'algorithme vu en cours avec max k couleurs(potentiellement partielle)
+    @return : renvoie une coloration selon l'algorithme vu en cours avec max k couleurs
+     ( coloriage peut être partiel si l'algorithme n'arrive pas à tout colorier ! )
     """
     sommets = {sommet:-1 for sommet in list(G.keys())} # Hashmap des couleurs
     max_sommet = max_degre(G)
@@ -73,38 +59,3 @@ def naive_coloration(G,k):
         color+=1
 
     return sommets
-
-
-def is_k_colorable(G,k):
-    """
-    Selon l'algorithme vu en cours, colore le plus possible de noeuds avec k couleurs, 
-    et renvoie un tuple A,B , 
-    avec A le booléen étant vrai si le graphe est bien k-coloriable
-    et B étant la coloration obtenue (elle est partielle si A est faux )
-    """
-    cols = naive_coloration(G,k)
-    colors = set(cols.values())
-    return is_well_colored(G,cols),cols
-
-
-
-# def est_k_coloriable(G,k):
-#     is_colorable = False
-#     poss_coloration = None
-#     def loop(f,cols,somms):
-#         fixed = f.copy()
-#         if is_colorable:
-#             return
-#         not_fixed = [s for s in list(cols.keys()) if not(s in fixed) ]
-#         if is_well_colored(G,somms):
-#             is_colorable = True
-#             poss_coloration = somms
-#             return
-#         if (len(not_fixed)==1 and cols[not_fixed[0]]==k-1) or len(not_fixed)==0:
-#             return
-        
-#         to_fix = not_fixed[0]
-
-#         if cols[not_fixed[0]] == k-1:
-#             to_fix = not_fixed[1]
-#             fixed.append(not_fixed[0])
