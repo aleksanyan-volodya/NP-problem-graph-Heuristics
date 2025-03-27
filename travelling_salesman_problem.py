@@ -1,33 +1,3 @@
-import random
-
-def random_graph_generator(n=10, m=0.5, min_w=1, max_w=20) -> dict:
-    """
-    n: number of nodes
-    m: probability of edge creation
-    min_w: minimum weight of an edge
-    max_w: maximum weight of an edge
-
-    return: a random graph in form of a dictionary of dictionaries
-    
-    ex :
-    $ random_graph_generator(4, 0.5, 1, 10)
-    
-    > {1: {       2: 10,           },
-    >  2: {1: 10,        3: 2, 4: 8},
-    >  3: {       2: 2,        4: 6},
-    >  4: {       2: 8, 3: 6       }}
-
-    """
-    G = {}
-    for i in range(1,n+1):
-        G[i] = {}
-        for j in range(1, i):
-            if random.random() < m:
-                val = random.randint(min_w,max_w)
-                G[i][j] = val
-                G[j][i] = val
-    return G
-
 def path_weight(G, path) -> int:
     """
     G: a graph in form of a dictionary of dictionaries
@@ -98,6 +68,7 @@ def loop_over_paths(G, path) -> tuple:
         best = best_path(G, path)
     return best
 
+
 if __name__ == "__main__":
     graph = {1:{      2:12, 3:10,                 7:12},
          2:{1:12,       3:8, 4:12                 },
@@ -109,4 +80,4 @@ if __name__ == "__main__":
          }
     
     print(best_path(graph, [1,2,3,4,5,6,7,1]))
-    #print(loop_over_paths(graph, [1,2,3,4,5,6,7,1]))
+    print(loop_over_paths(graph, [1,2,3,4,5,6,7,1]))
