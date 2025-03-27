@@ -19,7 +19,7 @@ def two_opt(G, path):
                     weight = new_weight
                     improved = True
 
-    return path, tsp.path_weight(G, path)
+    return path, weight
 
 if __name__ == "__main__":
     graph = {1:{      2:12, 3:10,                 7:12},

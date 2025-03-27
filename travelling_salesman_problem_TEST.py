@@ -2,6 +2,7 @@
 
 import random
 import travelling_salesman_problem as tsp
+import Heuristcs as heu
 
 def random_graph_generator(n=10, m=0.7, min_w=1, max_w=20) -> dict:
     """
@@ -95,13 +96,14 @@ def test():
     print(([1, 2, 5, 3, 4, 6, 1], 39) == tsp.loop_over_paths(graph, path))
 
 
-    graph = random_graph_generator(6, 0.7, 1, 20)
+    graph = random_graph_generator(15, 0.7, 1, 20)
     path = find_hamiltonian_cycle(graph)
     print_graph(graph)
     print(f"{path = }")
     if path is not None:
-        print(tsp.best_path(graph, path))
-        print(tsp.loop_over_paths(graph, path))
+        print("1 step: ", tsp.best_path(graph, path))
+        print("normal: ", tsp.loop_over_paths(graph, path))
+        print("2-OPT: ", heu.two_opt(graph, path))
 
 if __name__ == "__main__":
     test()
